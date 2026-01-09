@@ -45,15 +45,25 @@
       .hidden {
         display: none;
       }
+      #passwordError {
+        color: #ffe0e0;
+        margin-top: 10px;
+      }
     </style>
   </head>
 
   <body>
     <div class="card">
-      <h1 id="title">Mam do Ciebie jedno ważne pytanie...</h1>
-      <button id="startBtn">Kliknij mnie 💌</button>
+      <div id="passwordScreen">
+        <h1>Podaj hasło</h1>
+        <input type="password" id="passwordInput" placeholder="Wpisz hasło" />
+        <button onclick="checkPassword()">Wejdź</button>
+        <p id="passwordError" class="hidden">Postaraj sie myszko</p>
+      </div>
 
-      <!-- KROK 1 -->
+      <h1 id="title" class="hidden">Mam do Ciebie jedno ważne pytanie...</h1>
+      <button id="startBtn" class="hidden">KLIKNIJ 💌</button>
+
       <div id="step1" class="hidden">
         <h1>Co robisz 14 lutego?</h1>
         <input type="text" placeholder="Wpisz swoją odpowiedź" />
@@ -65,17 +75,15 @@
         <button id="ahaBtn" class="hidden" onclick="goToStep3()">AHA</button>
       </div>
 
-      <!-- KROK 2 -->
       <div id="step3" class="hidden">
-        <h1>Czy zostaniesz moją Walentynką? 💖</h1>
+        <h1>Bo musisz zostać moją walentynką! 💖🐦‍🔥🐦‍🔥🐦‍🔥🤍</h1>
         <button onclick="yes()">TAK 💕</button>
         <button id="noBtn" onclick="no()">NIE 😢</button>
       </div>
 
-      <!-- FINAŁ -->
       <div id="answer" class="hidden">
-        <h1>Wiedziałem! 🥰</h1>
-        <p>Nie mogę się doczekać Walentynek z Tobą ❤️</p>
+        <h1>я тебе теж люблю!</h1>
+        <p>хіхіхіхіхіхіхіхі</p>
       </div>
     </div>
 
@@ -89,6 +97,10 @@
       const noBtn = document.getElementById("noBtn");
       const step2Text = document.getElementById("step1andahalf");
       const ahaBtn = document.getElementById("ahaBtn");
+      const passwordScreen = document.getElementById("passwordScreen");
+      const passwordInput = document.getElementById("passwordInput");
+      const passwordError = document.getElementById("passwordError");
+      const PASSWORD = "cwel";
 
       let noClicks = 0;
 
@@ -97,15 +109,24 @@
         title.classList.add("hidden");
         step1.classList.remove("hidden");
       });
+      function checkPassword() {
+        if (passwordInput.value === PASSWORD) {
+          passwordScreen.classList.add("hidden");
+
+          title.classList.remove("hidden");
+          startBtn.classList.remove("hidden");
+        } else {
+          passwordError.classList.remove("hidden");
+          passwordInput.value = "";
+        }
+      }
+
       function goToStep2() {
         step1.classList.add("hidden");
         step2.classList.remove("hidden");
-
-        // reset na wszelki wypadek
         step2Text.classList.add("hidden");
         ahaBtn.classList.add("hidden");
 
-        // dramatyczna pauza
         setTimeout(() => {
           step2Text.classList.remove("hidden");
         }, 1200);
@@ -127,13 +148,7 @@
 
       function no() {
         noClicks++;
-        const texts = [
-          "Na pewno? 🤨",
-          "Zastanów się jeszcze 😏",
-          "Ej nooo 🥺",
-          "Ostatnia szansa 😭",
-          "No weź 💔",
-        ];
+        const texts = ["cwel? 🤨", "Cwel? 🤨🤨🤨🤨", "CWEL 💔"];
 
         if (noClicks <= texts.length) {
           noBtn.textContent = texts[noClicks - 1];
