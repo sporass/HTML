@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bardzo Ważne</title>
+
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        color: white;
+        text-align: center;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 30px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      button,
+      input {
+        background: white;
+        color: #ff4d6d;
+        border: none;
+        padding: 15px 20px;
+        font-size: 16px;
+        border-radius: 30px;
+        margin: 10px;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h1 id="title">Mam do Ciebie jedno ważne pytanie...</h1>
+      <button id="startBtn">Kliknij mnie 💌</button>
+
+      <!-- KROK 1 -->
+      <div id="step1" class="hidden">
+        <h1>Co robisz 14 lutego?</h1>
+        <input type="text" placeholder="Wpisz swoją odpowiedź" />
+        <button onclick="goToStep2()">Odpowiedz</button>
+      </div>
+
+      <div id="step2" class="hidden">
+        <h1 id="step1andahalf" class="hidden">SZCZERZE NIE JEST TO WAŻNE</h1>
+        <button id="ahaBtn" class="hidden" onclick="goToStep3()">AHA</button>
+      </div>
+
+      <!-- KROK 2 -->
+      <div id="step3" class="hidden">
+        <h1>Czy zostaniesz moją Walentynką? 💖</h1>
+        <button onclick="yes()">TAK 💕</button>
+        <button id="noBtn" onclick="no()">NIE 😢</button>
+      </div>
+
+      <!-- FINAŁ -->
+      <div id="answer" class="hidden">
+        <h1>Wiedziałem! 🥰</h1>
+        <p>Nie mogę się doczekać Walentynek z Tobą ❤️</p>
+      </div>
+    </div>
+
+    <script>
+      const startBtn = document.getElementById("startBtn");
+      const title = document.getElementById("title");
+      const step1 = document.getElementById("step1");
+      const step2 = document.getElementById("step2");
+      const step3 = document.getElementById("step3");
+      const answer = document.getElementById("answer");
+      const noBtn = document.getElementById("noBtn");
+      const step2Text = document.getElementById("step1andahalf");
+      const ahaBtn = document.getElementById("ahaBtn");
+
+      let noClicks = 0;
+
+      startBtn.addEventListener("click", () => {
+        startBtn.classList.add("hidden");
+        title.classList.add("hidden");
+        step1.classList.remove("hidden");
+      });
+      function goToStep2() {
+        step1.classList.add("hidden");
+        step2.classList.remove("hidden");
+
+        // reset na wszelki wypadek
+        step2Text.classList.add("hidden");
+        ahaBtn.classList.add("hidden");
+
+        // dramatyczna pauza
+        setTimeout(() => {
+          step2Text.classList.remove("hidden");
+        }, 1200);
+
+        setTimeout(() => {
+          ahaBtn.classList.remove("hidden");
+        }, 2000);
+      }
+
+      function goToStep3() {
+        step2.classList.add("hidden");
+        step3.classList.remove("hidden");
+      }
+
+      function yes() {
+        step3.classList.add("hidden");
+        answer.classList.remove("hidden");
+      }
+
+      function no() {
+        noClicks++;
+        const texts = [
+          "Na pewno? 🤨",
+          "Zastanów się jeszcze 😏",
+          "Ej nooo 🥺",
+          "Ostatnia szansa 😭",
+          "No weź 💔",
+        ];
+
+        if (noClicks <= texts.length) {
+          noBtn.textContent = texts[noClicks - 1];
+        } else {
+          noBtn.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
